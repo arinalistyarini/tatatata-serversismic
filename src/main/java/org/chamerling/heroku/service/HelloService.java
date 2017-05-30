@@ -13,4 +13,5 @@ import javax.jws.WebService;
 public interface HelloService {
 
 	String sayHi(String input);
+        Boolean ubahSaldo(int pil, String idKartu, int nominal, int saldoKartu, String via);
 }
