@@ -34,11 +34,11 @@ public class HelloServiceImpl implements HelloService {
             saldoRef.updateChildren(ubahSaldo);
 
             //nulis riwayat transaksi
-            String transaksiURL = "account/" + idKartu + "/transaction/" + System.currentTimeMillis();
+            String transaksiURL = "kartu/" + idKartu + "/transaction/" + System.currentTimeMillis(); // timestamp
             Firebase transaksiRef = ref.child(transaksiURL);
             Map<String, Object> transaction = new HashMap<String, Object>();
-            //buat insert id_transaksi unique: String key = userRef.push().getKey();
-            //buat insert id_transaksi unique: transaction.put("id_transaksi", key);
+            //buat insert id_transaksi unique:  - get key unik: String key = userRef.push().getKey();
+            // - masukin ke db: transaction.put("id_transaksi", key);
             transaction.put("nominal", nominal);
             if(pil == 0){ // top-up saldo
                 transaction.put("jenis_transaksi", "top-up saldo");
