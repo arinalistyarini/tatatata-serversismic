@@ -4,8 +4,22 @@
 package org.chamerling.heroku.service;
 
 import com.firebase.client.Firebase;
+import com.serversismic.model.*;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 
 /**
  * @author chamerling
@@ -14,14 +28,8 @@ import java.util.Map;
 public class HelloServiceImpl implements HelloService {
         private final String rootURL = "https://ta-sismic.firebaseio.com/";
 
-	@Override
-	public String sayHi(String input) {
-            System.out.println("Hello invoked : " + input);
-            return String.format("Hello '%s'", input);
-	}
-        
-        @Override
-        public Boolean ubahSaldo(int pil, String idKartu, int nominal, int saldoKartu, String via){
+        @WebMethod(operationName = "ubahSaldo")
+        public Boolean ubahSaldo(@WebParam(name = "pil") int pil, @WebParam(name = "idKartu") String idKartu, @WebParam(name = "nominal") int nominal, @WebParam(name = "saldoKartu") int saldoKartu, @WebParam(name = "via") String via){
                 
             // ubah saldo di firebase
             Firebase ref = new Firebase(rootURL);
@@ -34,7 +42,7 @@ public class HelloServiceImpl implements HelloService {
             saldoRef.updateChildren(ubahSaldo);
 
             //nulis riwayat transaksi
-            String transaksiURL = "kartu/" + idKartu + "/transaction/" + System.currentTimeMillis(); // timestamp
+            String transaksiURL = "kartu/" + idKartu + "/transaksi/" + System.currentTimeMillis(); // timestamp
             Firebase transaksiRef = ref.child(transaksiURL);
             Map<String, Object> transaction = new HashMap<String, Object>();
             //buat insert id_transaksi unique:  - get key unik: String key = userRef.push().getKey();
@@ -54,5 +62,51 @@ public class HelloServiceImpl implements HelloService {
             transaksiRef.updateChildren(transaction);
             return true;
         }
+        
+        @WebMethod(operationName = "getListTransaksi")
+        public ArrayList<Transaksi> getListTransaksi(@WebParam(name = "idKartu") String idKartu){
+            Transaksi a = new Transaksi();
+            ArrayList<Transaksi> b = new ArrayList<Transaksi>();
+            b.add(a);
+            try {
+                URL url = new URL(rootURL + "/kartu/" + idKartu + "/transaksi.json");
+                URLConnection con = url.openConnection();
+                JSONTokener json = new JSONTokener(con.getInputStream());
+                JSONObject obj = new JSONObject(json);
+                Iterator<String> data = obj.keys();
+                ArrayList<Transaksi> t = new ArrayList<Transaksi>();
+                
+                while(data.hasNext()){
+                    String waktu = data.next();
+                    
+                    JSONObject getTrans = obj.getJSONObject(waktu);
 
+                    Transaksi transaksi = new Transaksi();
+                    transaksi.setIdKartu(idKartu);
+                    transaksi.setJenisTransaksi(getTrans.getString("jenis_transaksi"));
+                    transaksi.setNominal(getTrans.getInt("nominal"));
+                    transaksi.setStatus(getTrans.getString("status"));
+                    transaksi.setVia(getTrans.getString("via"));
+                    transaksi.setWaktu(null);
+                    t.add(transaksi);
+                }                
+                
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(HelloServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(HelloServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return b;
+        }
+        
+        @WebMethod(operationName = "getInfoKartu")
+        public Kartu getInfoKartu(@WebParam(name = "idKartu") String idKartu){
+            Kartu a = new Kartu();
+            return a;
+        }
+        
+        @WebMethod(operationName = "writeKadaluarsa")
+        public Boolean writeKadaluarsa(@WebParam(name = "idKartu") String idKartu){
+            return true;
+        }
 }
