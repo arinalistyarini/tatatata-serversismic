@@ -26,7 +26,7 @@ public class HelloServiceImpl implements HelloService {
             // ubah saldo di firebase
             Firebase ref = new Firebase(rootURL);
             saldoKartu = saldoKartu + nominal;
-            String saldoURL = "account/" + idKartu;
+            String saldoURL = "kartu/" + idKartu;
             Firebase saldoRef = ref.child(saldoURL);
 
             Map<String, Object> ubahSaldo = new HashMap<String, Object>();
