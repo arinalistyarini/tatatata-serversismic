@@ -62,15 +62,15 @@ public class HelloServiceImpl implements HelloService {
             return true;
         }
         
-        /*@WebMethod(operationName = "getListTransaksi")
+        @WebMethod(operationName = "getListTransaksi")
         public ArrayList<Transaksi> getListTransaksi(@WebParam(name = "idKartu") String idKartu){
-            ArrayList<Transaksi> t = new ArrayList<Transaksi>();
             try {
                 URL url = new URL(rootURL + "/kartu/" + idKartu + "/transaksi.json");
                 URLConnection con = url.openConnection();
                 JSONTokener json = new JSONTokener(con.getInputStream());
                 JSONObject obj = new JSONObject(json);
                 Iterator<String> data = obj.keys();
+                ArrayList<Transaksi> t = new ArrayList<Transaksi>();
                                 
                 while(data.hasNext()){
                     String waktu = data.next();
@@ -92,7 +92,7 @@ public class HelloServiceImpl implements HelloService {
                 Logger.getLogger(HelloServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
             return null;
-        }*/
+        }
         /*
         @WebMethod(operationName = "getInfoKartu")
         public Kartu getInfoKartu(@WebParam(name = "idKartu") String idKartu){
