@@ -6,7 +6,6 @@ package org.chamerling.heroku.service;
 import com.firebase.client.Firebase;
 import com.serversismic.model.*;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -67,17 +66,14 @@ public class HelloServiceImpl implements HelloService {
         @WebMethod(operationName = "getListTransaksi")
         @Override
         public ArrayList<Transaksi> getListTransaksi(@WebParam(name = "idKartu") String idKartu){
-            Transaksi a = new Transaksi();
-            ArrayList<Transaksi> b = new ArrayList<Transaksi>();
-            b.add(a);
+            ArrayList<Transaksi> t = new ArrayList<Transaksi>();
             try {
                 URL url = new URL(rootURL + "/kartu/" + idKartu + "/transaksi.json");
                 URLConnection con = url.openConnection();
                 JSONTokener json = new JSONTokener(con.getInputStream());
                 JSONObject obj = new JSONObject(json);
                 Iterator<String> data = obj.keys();
-                ArrayList<Transaksi> t = new ArrayList<Transaksi>();
-                
+                                
                 while(data.hasNext()){
                     String waktu = data.next();
                     
@@ -92,13 +88,10 @@ public class HelloServiceImpl implements HelloService {
                     transaksi.setWaktu(null);
                     t.add(transaksi);
                 }                
-                
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(HelloServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(HelloServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
-            return b;
+            return t;
         }
         /*
         @WebMethod(operationName = "getInfoKartu")
