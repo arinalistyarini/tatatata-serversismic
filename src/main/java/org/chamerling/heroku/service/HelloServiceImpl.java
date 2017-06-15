@@ -65,7 +65,7 @@ public class HelloServiceImpl implements HelloService {
         @WebMethod(operationName = "getListTransaksi")
         public ArrayList<Transaksi> getListTransaksi(@WebParam(name = "idKartu") String idKartu){
             ArrayList<Transaksi> t = new ArrayList<Transaksi>();
-            try {
+            /*try {
                 URL url = new URL(rootURL + "/kartu/" + idKartu + "/transaksi.json");
                 URLConnection con = url.openConnection();
                 JSONTokener json = new JSONTokener(con.getInputStream());
@@ -90,7 +90,7 @@ public class HelloServiceImpl implements HelloService {
                 return t;
             } catch (IOException ex) {
                 Logger.getLogger(HelloServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
             return null;
         }
         /*
