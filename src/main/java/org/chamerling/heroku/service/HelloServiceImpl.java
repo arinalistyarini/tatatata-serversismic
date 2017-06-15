@@ -63,7 +63,7 @@ public class HelloServiceImpl implements HelloService {
             transaksiRef.updateChildren(transaction);
             return true;
         }
-        /*
+        
         @WebMethod(operationName = "getListTransaksi")
         @Override
         public ArrayList<Transaksi> getListTransaksi(@WebParam(name = "idKartu") String idKartu){
@@ -100,7 +100,7 @@ public class HelloServiceImpl implements HelloService {
             }
             return b;
         }
-        
+        /*
         @WebMethod(operationName = "getInfoKartu")
         @Override
         public Kartu getInfoKartu(@WebParam(name = "idKartu") String idKartu){
