@@ -5,7 +5,7 @@ package org.chamerling.heroku.service;
 
 import com.firebase.client.Firebase;
 import com.serversismic.model.*;
-import com.serversismic.webservice.Webservice;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -85,13 +85,13 @@ public class HelloServiceImpl implements HelloService {
                     transaksi.setNominal(getTrans.getInt("nominal"));
                     transaksi.setStatus(getTrans.getString("status"));
                     transaksi.setVia(getTrans.getString("via"));
-                    transaksi.setWaktu(null);
+                    //transaksi.setWaktu(null);
                     t.add(transaksi);
                 }    
                 
                 return t;
-            } catch (Exception ex) {
-                Logger.getLogger(Webservice.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(HelloServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
             return null;
         }
