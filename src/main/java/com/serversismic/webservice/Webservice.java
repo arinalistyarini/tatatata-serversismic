@@ -1,7 +1,10 @@
-/**
- * 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-package org.chamerling.heroku.service;
+
+package com.serversismic.webservice;
 
 import com.firebase.client.Firebase;
 import com.serversismic.model.*;
@@ -16,19 +19,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebService;
+import org.chamerling.heroku.service.HelloServiceImpl;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-
 /**
- * @author chamerling
- * 
+ *
+ * @author Arina Listyarini DA
  */
-public class HelloServiceImpl implements HelloService {
-        private final String rootURL = "https://ta-sismic.firebaseio.com/";
+@WebService(serviceName = "ws")
+public class Webservice {
+    private final String rootURL = "https://ta-sismic.firebaseio.com/";
 
         @WebMethod(operationName = "ubahSaldo")
-        @Override
         public Boolean ubahSaldo(@WebParam(name = "pil") int pil, @WebParam(name = "idKartu") String idKartu, @WebParam(name = "nominal") int nominal, @WebParam(name = "saldoKartu") int saldoKartu, @WebParam(name = "via") String via){
                 
             // ubah saldo di firebase
@@ -64,7 +68,6 @@ public class HelloServiceImpl implements HelloService {
         }
         
         @WebMethod(operationName = "getListTransaksi")
-        @Override
         public ArrayList<Transaksi> getListTransaksi(@WebParam(name = "idKartu") String idKartu){
             ArrayList<Transaksi> t = new ArrayList<Transaksi>();
             try {
@@ -87,25 +90,23 @@ public class HelloServiceImpl implements HelloService {
                     transaksi.setVia(getTrans.getString("via"));
                     transaksi.setWaktu(null);
                     t.add(transaksi);
-                }    
+                }                
                 
                 return t;
-            } catch (IOException ex) {
-                Logger.getLogger(HelloServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(Webservice.class.getName()).log(Level.SEVERE, null, ex);
             }
             return null;
         }
-        /*
+        
         @WebMethod(operationName = "getInfoKartu")
-        @Override
         public Kartu getInfoKartu(@WebParam(name = "idKartu") String idKartu){
             Kartu a = new Kartu();
             return a;
         }
         
         @WebMethod(operationName = "writeKadaluarsa")
-        @Override
         public Boolean writeKadaluarsa(@WebParam(name = "idKartu") String idKartu){
             return true;
-        }*/
+        }
 }
