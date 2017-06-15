@@ -5,7 +5,7 @@ package org.chamerling.heroku.service;
 
 import com.firebase.client.Firebase;
 import com.serversismic.model.*;
-import java.io.IOException;
+import com.serversismic.webservice.Webservice;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -90,8 +90,8 @@ public class HelloServiceImpl implements HelloService {
                 }    
                 
                 return t;
-            } catch (IOException ex) {
-                Logger.getLogger(HelloServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(Webservice.class.getName()).log(Level.SEVERE, null, ex);
             }
             return null;
         }
