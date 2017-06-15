@@ -8,7 +8,6 @@ package com.serversismic.webservice;
 
 import com.firebase.client.Firebase;
 import com.serversismic.model.*;
-import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -20,7 +19,6 @@ import java.util.logging.Logger;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
-import org.chamerling.heroku.service.HelloServiceImpl;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -28,7 +26,7 @@ import org.json.JSONTokener;
  *
  * @author Arina Listyarini DA
  */
-@WebService(serviceName = "ws")
+@WebService(serviceName = "Webservice")
 public class Webservice {
     private final String rootURL = "https://ta-sismic.firebaseio.com/";
 

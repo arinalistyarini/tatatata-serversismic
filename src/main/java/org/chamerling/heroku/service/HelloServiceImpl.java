@@ -28,7 +28,6 @@ public class HelloServiceImpl implements HelloService {
         private final String rootURL = "https://ta-sismic.firebaseio.com/";
 
         @WebMethod(operationName = "ubahSaldo")
-        @Override
         public Boolean ubahSaldo(@WebParam(name = "pil") int pil, @WebParam(name = "idKartu") String idKartu, @WebParam(name = "nominal") int nominal, @WebParam(name = "saldoKartu") int saldoKartu, @WebParam(name = "via") String via){
                 
             // ubah saldo di firebase
@@ -64,7 +63,6 @@ public class HelloServiceImpl implements HelloService {
         }
         
         @WebMethod(operationName = "getListTransaksi")
-        @Override
         public ArrayList<Transaksi> getListTransaksi(@WebParam(name = "idKartu") String idKartu){
             ArrayList<Transaksi> t = new ArrayList<Transaksi>();
             try {
@@ -97,7 +95,6 @@ public class HelloServiceImpl implements HelloService {
         }
         /*
         @WebMethod(operationName = "getInfoKartu")
-        @Override
         public Kartu getInfoKartu(@WebParam(name = "idKartu") String idKartu){
             Kartu a = new Kartu();
             return a;
