@@ -20,10 +20,10 @@ public interface HelloService {
         
         @WebMethod(operationName = "getListTransaksi")
         public ArrayList<Transaksi> getListTransaksi(@WebParam(name = "idKartu") String idKartu);
-        /*
+        
         @WebMethod(operationName = "getInfoKartu")
         public Kartu getInfoKartu(@WebParam(name = "idKartu") String idKartu);
-        
+        /*
         @WebMethod(operationName = "writeKadaluarsa")
         public Boolean writeKadaluarsa(@WebParam(name = "idKartu") String idKartu);*/
 }

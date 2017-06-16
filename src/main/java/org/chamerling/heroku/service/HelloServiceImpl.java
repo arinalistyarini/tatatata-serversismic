@@ -65,7 +65,7 @@ public class HelloServiceImpl implements HelloService {
         @WebMethod(operationName = "getListTransaksi")
         public ArrayList<Transaksi> getListTransaksi(@WebParam(name = "idKartu") String idKartu){
             try {
-                URL url = new URL(rootURL + "/kartu/" + idKartu + "/transaksi.json");
+                URL url = new URL(rootURL + "kartu/" + idKartu + "/transaksi.json");
                 URLConnection con = url.openConnection();
                 JSONTokener json = new JSONTokener(con.getInputStream());
                 JSONObject obj = new JSONObject(json);
@@ -93,13 +93,13 @@ public class HelloServiceImpl implements HelloService {
             }
             return null;
         }
-        /*
+        
         @WebMethod(operationName = "getInfoKartu")
         public Kartu getInfoKartu(@WebParam(name = "idKartu") String idKartu){
             Kartu a = new Kartu();
             return a;
         }
-        
+        /*
         @WebMethod(operationName = "writeKadaluarsa")
         @Override
         public Boolean writeKadaluarsa(@WebParam(name = "idKartu") String idKartu){
