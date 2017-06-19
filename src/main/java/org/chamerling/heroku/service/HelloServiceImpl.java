@@ -96,8 +96,22 @@ public class HelloServiceImpl implements HelloService {
         
         @WebMethod(operationName = "getInfoKartu")
         public Kartu getInfoKartu(@WebParam(name = "idKartu") String idKartu){
-            Kartu a = new Kartu();
-            return a;
+            try {
+                URL url = new URL(rootURL + "kartu/" + idKartu + ".json");
+                URLConnection con = url.openConnection();
+                JSONTokener json = new JSONTokener(con.getInputStream());
+                JSONObject obj = new JSONObject(json);
+                Kartu k = new Kartu();
+                
+                k.setIdKartu(idKartu);
+                //k.setKadaluarsa(null);
+                k.setSaldo(obj.getInt("saldo"));
+                
+                return k;
+            } catch (IOException ex) {
+                Logger.getLogger(HelloServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return null;
         }
         /*
         @WebMethod(operationName = "writeKadaluarsa")
