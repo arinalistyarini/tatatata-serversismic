@@ -6,7 +6,7 @@
 
 package com.serversismic.model;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  *
@@ -14,7 +14,7 @@ import java.sql.Timestamp;
  */
 public class Transaksi {
     private String idKartu;
-    private Timestamp waktu;
+    private Date waktu;
     private int nominal;
     private String jenisTransaksi;
     private String status;
@@ -28,11 +28,11 @@ public class Transaksi {
         this.idKartu = idKartu;
     }
 
-    public Timestamp getWaktu() {
+    public Date getWaktu() {
         return waktu;
     }
 
-    public void setWaktu(Timestamp waktu) {
+    public void setWaktu(Date waktu) {
         this.waktu = waktu;
     }
 

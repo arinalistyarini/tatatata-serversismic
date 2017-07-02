@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -83,7 +84,7 @@ public class HelloServiceImpl implements HelloService {
                     transaksi.setNominal(getTrans.getInt("nominal"));
                     transaksi.setStatus(getTrans.getString("status"));
                     transaksi.setVia(getTrans.getString("via"));
-                    //transaksi.setWaktu(null);
+                    transaksi.setWaktu(new Date(Long.parseLong(getTrans.getString("waktu"))));
                     t.add(transaksi);
                 }    
                 
@@ -104,7 +105,7 @@ public class HelloServiceImpl implements HelloService {
                 Kartu k = new Kartu();
                 
                 k.setIdKartu(idKartu);
-                //k.setKadaluarsa(null);
+                k.setKadaluarsa(new Date(Long.parseLong(obj.getString("kadaluarsa"))));
                 k.setSaldo(obj.getInt("saldo"));
                 
                 return k;
