@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.chamerling.heroku.servicesismic;
+package com.serversismic.webservice;
 
 import com.serversismic.model.*;
 import java.util.ArrayList;

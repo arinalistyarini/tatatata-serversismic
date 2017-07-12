@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.chamerling.heroku.servicesismic;
+package com.serversismic.webservice;
 
 import com.firebase.client.Firebase;
 import com.serversismic.model.*;
