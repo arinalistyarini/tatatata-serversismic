@@ -109,7 +109,7 @@ public class HelloServiceImpl implements HelloService {
                 JSONObject obj = new JSONObject(json);
                 Kartu k = new Kartu();
 
-                String str = obj.getInt("kadaluarsa") + "";
+                String str = obj.getLong("kadaluarsa") + "";
                 k.setKadaluarsa(new Date(Long.parseLong(str)));
                 
                 System.out.println(str);
