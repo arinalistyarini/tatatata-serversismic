@@ -111,6 +111,9 @@ public class HelloServiceImpl implements HelloService {
 
                 String str = obj.getInt("kadaluarsa") + "";
                 k.setKadaluarsa(new Date(Long.parseLong(str)));
+                
+                System.out.println(str);
+                System.out.println(k.getKadaluarsa().getTime());
 
                 k.setSaldo(obj.getInt("saldo"));
                 k.setIdKartu(idKartu);
