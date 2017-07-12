@@ -62,6 +62,20 @@ public class HelloServiceImpl implements HelloService {
             return true;
         }
         
+        @WebMethod(operationName = "tambahLog")
+        public Boolean tambahLog(@WebParam(name = "idKartu") String idKartu, @WebParam(name = "yangDilakukan") String yangDilakukan, @WebParam(name = "waktu") String waktu){
+            Firebase ref = new Firebase(rootURL);
+            String lURL = "kartu/" + idKartu + "/log/" + waktu;
+            Firebase logRef = ref.child(lURL);
+
+            Map<String, Object> addL = new HashMap<String, Object>();
+            addL.put("yang_dilakukan", yangDilakukan);
+            addL.put("status", "berhasil");
+            logRef.updateChildren(addL);
+            
+            return true;
+        }
+        
         @WebMethod(operationName = "getListTransaksi")
         public ArrayTransaksi getListTransaksi(@WebParam(name = "idKartu") String idKartu){
             try {

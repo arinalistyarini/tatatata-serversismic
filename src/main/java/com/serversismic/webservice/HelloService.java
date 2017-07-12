@@ -18,11 +18,15 @@ public interface HelloService {
         @WebMethod(operationName = "ubahSaldo")
         public Boolean ubahSaldo(@WebParam(name = "pil") int pil, @WebParam(name = "idKartu") String idKartu, @WebParam(name = "nominal") int nominal, @WebParam(name = "saldoKartu") int saldoKartu, @WebParam(name = "via") String via);
         
+        @WebMethod(operationName = "tambahLog")
+        public Boolean tambahLog(@WebParam(name = "idKartu") String idKartu, @WebParam(name = "yangDilakukan") String yangDilakukan, @WebParam(name = "waktu") String waktu);
+        
         @WebMethod(operationName = "getListTransaksi")
         public ArrayTransaksi getListTransaksi(@WebParam(name = "idKartu") String idKartu);
         
         @WebMethod(operationName = "getInfoKartu")
         public Kartu getInfoKartu(@WebParam(name = "idKartu") String idKartu);
+                
         /*
         @WebMethod(operationName = "writeKadaluarsa")
         public Boolean writeKadaluarsa(@WebParam(name = "idKartu") String idKartu);*/
