@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.chamerling.heroku.service;
+package org.chamerling.heroku.servicesismic;
 
 import com.firebase.client.Firebase;
 import com.serversismic.model.*;
@@ -33,7 +33,6 @@ public class HelloServiceImpl implements HelloService {
                 
             // ubah saldo di firebase
             Firebase ref = new Firebase(rootURL);
-            saldoKartu = saldoKartu + nominal;
             String saldoURL = "kartu/" + idKartu;
             Firebase saldoRef = ref.child(saldoURL);
 
@@ -64,18 +63,21 @@ public class HelloServiceImpl implements HelloService {
         }
         
         @WebMethod(operationName = "getListTransaksi")
-        public ArrayList<Transaksi> getListTransaksi(@WebParam(name = "idKartu") String idKartu){
+        public ArrayTransaksi getListTransaksi(@WebParam(name = "idKartu") String idKartu){
             try {
-                URL url = new URL(rootURL + "kartu/" + idKartu + "/transaksi.json");
+                String link = rootURL + "kartu/" + idKartu + "/transaksi.json";
+                System.out.println(link);
+                URL url = new URL(link);
                 URLConnection con = url.openConnection();
                 JSONTokener json = new JSONTokener(con.getInputStream());
                 JSONObject obj = new JSONObject(json);
                 Iterator<String> data = obj.keys();
                 ArrayList<Transaksi> t = new ArrayList<Transaksi>();
-                                
+
                 while(data.hasNext()){
+                    System.out.println("data ada next");
                     String waktu = data.next();
-                    
+
                     JSONObject getTrans = obj.getJSONObject(waktu);
 
                     Transaksi transaksi = new Transaksi();
@@ -84,13 +86,16 @@ public class HelloServiceImpl implements HelloService {
                     transaksi.setNominal(getTrans.getInt("nominal"));
                     transaksi.setStatus(getTrans.getString("status"));
                     transaksi.setVia(getTrans.getString("via"));
-                    transaksi.setWaktu(new Date(Long.parseLong(getTrans.getString("waktu"))));
+                    transaksi.setWaktu(new Date(Long.parseLong(waktu)));
                     t.add(transaksi);
-                }    
+                }
                 
-                return t;
+                ArrayTransaksi at = new ArrayTransaksi();
+                at.setTransaksis(t);
+
+                return at;
             } catch (IOException ex) {
-                Logger.getLogger(HelloServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex);
             }
             return null;
         }
@@ -103,14 +108,16 @@ public class HelloServiceImpl implements HelloService {
                 JSONTokener json = new JSONTokener(con.getInputStream());
                 JSONObject obj = new JSONObject(json);
                 Kartu k = new Kartu();
-                
-                k.setIdKartu(idKartu);
-                k.setKadaluarsa(new Date(Long.parseLong(obj.getString("kadaluarsa"))));
+
+                String str = obj.getInt("kadaluarsa") + "";
+                k.setKadaluarsa(new Date(Long.parseLong(str)));
+
                 k.setSaldo(obj.getInt("saldo"));
-                
+                k.setIdKartu(idKartu);
+
                 return k;
             } catch (IOException ex) {
-                Logger.getLogger(HelloServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex);
             }
             return null;
         }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.chamerling.heroku.service;
+package org.chamerling.heroku.servicesismic;
 
 import com.serversismic.model.*;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public interface HelloService {
         public Boolean ubahSaldo(@WebParam(name = "pil") int pil, @WebParam(name = "idKartu") String idKartu, @WebParam(name = "nominal") int nominal, @WebParam(name = "saldoKartu") int saldoKartu, @WebParam(name = "via") String via);
         
         @WebMethod(operationName = "getListTransaksi")
-        public ArrayList<Transaksi> getListTransaksi(@WebParam(name = "idKartu") String idKartu);
+        public ArrayTransaksi getListTransaksi(@WebParam(name = "idKartu") String idKartu);
         
         @WebMethod(operationName = "getInfoKartu")
         public Kartu getInfoKartu(@WebParam(name = "idKartu") String idKartu);
