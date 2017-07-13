@@ -29,7 +29,7 @@ public class HelloServiceImpl implements HelloService {
         private final String rootURL = "https://ta-sismic.firebaseio.com/";
 
         @WebMethod(operationName = "ubahSaldo")
-        public Boolean ubahSaldo(@WebParam(name = "pil") int pil, @WebParam(name = "idKartu") String idKartu, @WebParam(name = "nominal") int nominal, @WebParam(name = "saldoKartu") int saldoKartu, @WebParam(name = "via") String via){
+        public String ubahSaldo(@WebParam(name = "pil") int pil, @WebParam(name = "idKartu") String idKartu, @WebParam(name = "nominal") int nominal, @WebParam(name = "saldoKartu") int saldoKartu, @WebParam(name = "via") String via){
                 
             // ubah saldo di firebase
             Firebase ref = new Firebase(rootURL);
@@ -41,7 +41,8 @@ public class HelloServiceImpl implements HelloService {
             saldoRef.updateChildren(ubahSaldo);
 
             //nulis riwayat transaksi
-            String transaksiURL = "kartu/" + idKartu + "/transaksi/" + System.currentTimeMillis()/1000; // timestamp
+            String waktu = System.currentTimeMillis()/1000 + "";
+            String transaksiURL = "kartu/" + idKartu + "/transaksi/" + waktu; // timestamp
             Firebase transaksiRef = ref.child(transaksiURL);
             Map<String, Object> transaction = new HashMap<String, Object>();
             //buat insert id_transaksi unique:  - get key unik: String key = userRef.push().getKey();
@@ -59,7 +60,7 @@ public class HelloServiceImpl implements HelloService {
             transaction.put("status", "berhasil");
             transaction.put("via", via);
             transaksiRef.updateChildren(transaction);
-            return true;
+            return waktu;
         }
         
         @WebMethod(operationName = "tambahLog")
