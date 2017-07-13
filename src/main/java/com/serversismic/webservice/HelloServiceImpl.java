@@ -41,7 +41,7 @@ public class HelloServiceImpl implements HelloService {
             saldoRef.updateChildren(ubahSaldo);
 
             //nulis riwayat transaksi
-            String transaksiURL = "kartu/" + idKartu + "/transaksi/" + System.currentTimeMillis(); // timestamp
+            String transaksiURL = "kartu/" + idKartu + "/transaksi/" + System.currentTimeMillis()/1000; // timestamp
             Firebase transaksiRef = ref.child(transaksiURL);
             Map<String, Object> transaction = new HashMap<String, Object>();
             //buat insert id_transaksi unique:  - get key unik: String key = userRef.push().getKey();
@@ -100,7 +100,7 @@ public class HelloServiceImpl implements HelloService {
                     transaksi.setNominal(getTrans.getInt("nominal"));
                     transaksi.setStatus(getTrans.getString("status"));
                     transaksi.setVia(getTrans.getString("via"));
-                    transaksi.setWaktu(new Date(Long.parseLong(waktu)));
+                    transaksi.setWaktu(new Date(Long.parseLong(waktu + "000")));
                     t.add(transaksi);
                 }
                 
@@ -124,7 +124,7 @@ public class HelloServiceImpl implements HelloService {
                 Kartu k = new Kartu();
 
                 String str = obj.getLong("kadaluarsa") + "";
-                k.setKadaluarsa(new Date(Long.parseLong(str)));
+                k.setKadaluarsa(new Date(Long.parseLong(str + "000")));
                 
                 System.out.println(str);
                 System.out.println(k.getKadaluarsa().getTime());
